@@ -1,0 +1,29 @@
+<configuration>
+  <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+    <!-- encoders are assigned the type
+         ch.qos.logback.classic.encoder.PatternLayoutEncoder by default -->
+    <encoder>
+      <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+    </encoder>
+  </appender>
+
+  <appender name="DATA-FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <file>data.out</file>
+    <encoder>
+      <pattern>%d{HH:mm:ss.SSS} - %msg%n</pattern>
+    </encoder>
+    <rollingPolicy class="com.modcloth.backend.IntervalBasedRollingPolicy">
+      <fileNamePattern>data-%d{yyyyMMdd-HHmm}.out</fileNamePattern>
+      <cleanHistoryOnStart>false</cleanHistoryOnStart>
+      <maxHistory>10</maxHistory>
+    </rollingPolicy>
+  </appender>
+
+  <logger name="com.modcloth.druidia" level="INFO" additivity="false">
+    <appender-ref ref="DATA-FILE"/>
+  </logger>
+
+  <root level="info">
+    <appender-ref ref="STDOUT" />
+  </root>
+</configuration>
