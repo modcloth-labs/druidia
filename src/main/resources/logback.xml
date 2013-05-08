@@ -7,20 +7,28 @@
     </encoder>
   </appender>
 
-  <appender name="DATA-FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
-    <file>data.out</file>
-    <encoder>
-      <pattern>%d{HH:mm:ss.SSS} - %msg%n</pattern>
-    </encoder>
-    <rollingPolicy class="com.modcloth.backend.IntervalBasedRollingPolicy">
-      <fileNamePattern>data-%d{yyyyMMdd-HHmm}.out</fileNamePattern>
-      <cleanHistoryOnStart>false</cleanHistoryOnStart>
-      <maxHistory>10</maxHistory>
-    </rollingPolicy>
+  <appender name="SIFT" class="ch.qos.logback.classic.sift.SiftingAppender">
+    <discriminator>
+      <key>recordType</key>
+      <defaultValue>unknown</defaultValue>
+    </discriminator>
+    <sift>
+      <appender name="${recordType}" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${recordType}.out</file>
+        <encoder>
+          <pattern>%d{HH:mm:ss.SSS} - %msg%n</pattern>
+        </encoder>
+        <rollingPolicy class="com.modcloth.backend.IntervalBasedRollingPolicy">
+          <fileNamePattern>${recordType}-%d{yyyyMMdd-HHmm}.out</fileNamePattern>
+          <cleanHistoryOnStart>false</cleanHistoryOnStart>
+          <maxHistory>10</maxHistory>
+        </rollingPolicy>
+      </appender>
+    </sift>
   </appender>
 
   <logger name="com.modcloth.druidia" level="INFO" additivity="false">
-    <appender-ref ref="DATA-FILE"/>
+    <appender-ref ref="SIFT"/>
   </logger>
 
   <root level="info">

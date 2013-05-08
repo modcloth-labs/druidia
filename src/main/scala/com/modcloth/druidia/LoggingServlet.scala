@@ -5,7 +5,7 @@ import org.json4s._
 import org.scalatra._
 import org.scalatra.json._
 
-import org.slf4j.{Logger,LoggerFactory}
+import org.slf4j.{Logger,LoggerFactory,MDC}
 
 class LoggingServlet extends DruidiaStack with JacksonJsonSupport with jackson.JsonMethods {
   val logger = LoggerFactory.getLogger(getClass)
@@ -16,6 +16,7 @@ class LoggingServlet extends DruidiaStack with JacksonJsonSupport with jackson.J
   }
 
   post("/:type") {
+    MDC.put("recordType", params("type"))
     logger.info(compact(parsedBody))
   }
 
