@@ -1,7 +1,5 @@
 <configuration>
   <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
-    <!-- encoders are assigned the type
-         ch.qos.logback.classic.encoder.PatternLayoutEncoder by default -->
     <encoder>
       <pattern>%d{HH:mm:ss.SSS} - %msg%n</pattern>
     </encoder>
@@ -14,14 +12,14 @@
     </discriminator>
     <sift>
       <appender name="${recordType}" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>${recordType}.out</file>
+        <file>current/${recordType}.out</file>
         <encoder>
           <pattern>%d{HH:mm:ss.SSS} - %msg%n</pattern>
         </encoder>
         <rollingPolicy class="com.modcloth.backend.IntervalBasedRollingPolicy">
-          <fileNamePattern>${recordType}-%d{yyyyMMdd-HHmm}.out</fileNamePattern>
+          <fileNamePattern>archive/${recordType}-%d{yyyyMMdd-HHmm}.out</fileNamePattern>
           <cleanHistoryOnStart>false</cleanHistoryOnStart>
-          <maxHistory>10</maxHistory>
+          <maxHistory>50</maxHistory>
           <interval>5</interval>
         </rollingPolicy>
       </appender>
