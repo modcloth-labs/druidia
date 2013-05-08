@@ -4,14 +4,32 @@ import java.io.File
 
 import ch.qos.logback.core.rolling.TimeBasedRollingPolicy
 
+object TimeHelper {
+  def currentTimeInMillis: Long = System.currentTimeMillis
+  def minToMillis(minutes: Int): Long = 1000 * 60 * minutes
+}
+
 class IntervalBasedRollingPolicy[E] extends TimeBasedRollingPolicy[E] {
-  private[this] var interval = 0
+  import TimeHelper.{currentTimeInMillis,minToMillis}
+
+  private[this] var intervalStart = currentTimeInMillis
+  private[this] var interval = minToMillis(5)
 
   override def rollover() = {
-    if (interval != 0 && interval % 5 == 0) {
+    val currentTime = currentTimeInMillis
+
+    if (isRolloverTime(currentTime)) {
       super.rollover()
-      interval = 0
+      intervalStart = currentTime
     }
-    interval += 1
   }
+
+  def setInterval(newInterval: Int) {
+    if (newInterval >= 5 && newInterval <= 60) {
+      interval = minToMillis(newInterval)
+    }
+  }
+
+  private def isRolloverTime(time: Long): Boolean =
+    time >= intervalStart + interval
 }

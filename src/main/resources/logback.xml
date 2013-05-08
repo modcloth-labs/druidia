@@ -22,6 +22,7 @@
           <fileNamePattern>${recordType}-%d{yyyyMMdd-HHmm}.out</fileNamePattern>
           <cleanHistoryOnStart>false</cleanHistoryOnStart>
           <maxHistory>10</maxHistory>
+          <interval>5</interval>
         </rollingPolicy>
       </appender>
     </sift>
