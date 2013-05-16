@@ -1,19 +1,19 @@
 # Druidia
 
-Druidia is a really simple HTTP endpoint for logging (JSON) messages.
+Druidia is a really simple HTTP endpoint for logging messages.
 
-Make an HTTP POST to the URL `/:type` and it logs the message to a file
-with a name that matches `type`
+1. Make an HTTP POST of a JSON blob to the URL `/:type` 
+2. Druidia logs the message to a file with `type` in the filename!!
 
 ## Build & Run
 
-After cloning the repo
+Druidia uses [sbt](http://www.scala-sbt.org/) as a build tool. After cloning the repo
 
     $ cd <REPODIR>
 
 To build an executable jar:
 
-    $ sbt clean assembly
+    $ sbt assembly
 
 To run it:
 
