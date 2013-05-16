@@ -26,7 +26,7 @@
     </sift>
   </appender>
 
-  <logger name="com.modcloth.druidia" level="INFO" additivity="false">
+  <logger name="com.modcloth.druidia" level="INFO" additivity="true">
     <appender-ref ref="SIFT"/>
   </logger>
 
