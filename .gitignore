@@ -5,6 +5,10 @@
 *.swp
 *.out
 
+# project specific
+current/
+archive/
+
 # rails specific
 *.sqlite3
 config/database.yml
