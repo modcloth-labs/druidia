@@ -19,8 +19,8 @@
         <rollingPolicy class="com.modcloth.backend.IntervalBasedRollingPolicy">
           <fileNamePattern>archive/${recordType}-%d{yyyyMMdd-HHmm}.out</fileNamePattern>
           <cleanHistoryOnStart>false</cleanHistoryOnStart>
-          <maxHistory>50</maxHistory>
-          <interval>5</interval>
+          <maxHistory>3</maxHistory>
+          <interval>10</interval>
         </rollingPolicy>
       </appender>
     </sift>
