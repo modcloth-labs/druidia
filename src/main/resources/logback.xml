@@ -7,17 +7,17 @@
 
   <appender name="SIFT" class="ch.qos.logback.classic.sift.SiftingAppender">
     <discriminator>
-      <key>recordType</key>
+      <key>baseLogName</key>
       <defaultValue>unknown</defaultValue>
     </discriminator>
     <sift>
-      <appender name="${recordType}" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>current/${recordType}.out</file>
+      <appender name="${baseLogName}" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>current/${baseLogName}.out</file>
         <encoder>
           <pattern>%d{HH:mm:ss.SSS} - %msg%n</pattern>
         </encoder>
         <rollingPolicy class="com.modcloth.backend.IntervalBasedRollingPolicy">
-          <fileNamePattern>archive/${recordType}-%d{yyyyMMdd-HHmm}.out</fileNamePattern>
+          <fileNamePattern>archive/${baseLogName}-%d{yyyyMMdd-HHmm}.out</fileNamePattern>
           <cleanHistoryOnStart>false</cleanHistoryOnStart>
           <maxHistory>3</maxHistory>
           <interval>10</interval>

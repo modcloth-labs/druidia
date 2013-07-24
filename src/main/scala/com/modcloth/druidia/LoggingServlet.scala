@@ -15,8 +15,10 @@ class LoggingServlet extends DruidiaStack with JacksonJsonSupport with jackson.J
     layoutTemplate("/WEB-INF/templates/views/status.jade")
   }
 
-  post("/:type") {
-    MDC.put("recordType", params("type"))
+  post("/:source/:type") {
+    val logName = "%s_%s".format(params("source"), params("type"))
+
+    MDC.put("baseLogName", logName)
     logger.info(compact(parsedBody))
   }
 
