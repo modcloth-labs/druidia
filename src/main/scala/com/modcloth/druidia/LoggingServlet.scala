@@ -9,6 +9,7 @@ import org.slf4j.{Logger,LoggerFactory,MDC}
 
 class LoggingServlet extends DruidiaStack with JacksonJsonSupport with jackson.JsonMethods {
   val logger = LoggerFactory.getLogger(getClass)
+  val hostname = System.getenv("HOSTNAME");
 
   get("/") {
     contentType="text/html"
@@ -16,7 +17,7 @@ class LoggingServlet extends DruidiaStack with JacksonJsonSupport with jackson.J
   }
 
   post("/:source/:type") {
-    val logName = "%s_%s".format(params("source"), params("type"))
+    val logName = "%s_%s_%s".format(hostname, params("source"), params("type"))
 
     MDC.put("baseLogName", logName)
     logger.info(compact(parsedBody))
